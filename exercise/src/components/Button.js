@@ -7,13 +7,12 @@ const styles = {
     padding: 8
   }
 };
-export default class Button extends Component {
-  render() {
-    return (
-      <button style={{...styles.button, ...this.props.style}}>
-        {this.props.children}
-      </button>
-    );
-  }
+
+export const Button = (props) => {
+  return (
+    <button onClick={props.onClick} style={{...styles.button, ...props.style}}>
+      {props.children}
+    </button>
+  );
 }
 

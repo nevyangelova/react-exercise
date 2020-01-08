@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import Button from './Button';
-export default class HomeContent extends Component {
-  render() {
-    return (
-      <div>
-        <Button>Login</Button>
-      </div>
-    );
-  }
+import React from 'react';
+import { Button } from './Button';
+
+export const HomeContent = (props) => {
+  return (
+    <div>
+      <Button onClick={props.onLogin}>{props.isLoggedIn ? 'Logout' : 'Login'}</Button>
+    </div>
+  );
 }
