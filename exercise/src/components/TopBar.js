@@ -42,37 +42,39 @@ const StyledInitialsImage = styled.div`
   line-height: 2;
 `;
 
+const StyledImage = styled.img`
+  max-height: 40px;
+  flex: 1;
+`;
+
 export const TopBar = props => {
   const { isLoggedIn, onLogin } = props;
+
+  const SignUpButton = styled(Button)`
+    background-color: red;
+    color: white;
+  `;
+
+  const LoginButton = styled(Button)`
+    background-color: ${props.isLoggedIn ? 'red' : 'blue'};
+    color: white;
+  `;
+
   return (
     <StyledHeader>
       <StyledLogo>
         <Link to="/">
-          <img
-            alt={'logo'}
-            style={{ maxHeight: 40, flex: 1 }}
-            src="favicon-196x196.png"
-          />
+          <StyledImage alt={'logo'} src="favicon-196x196.png" />
         </Link>
       </StyledLogo>
       <div>{'Modus Create'}</div>
       <StyledFloatLeft />
       <StyledFloatRight>
         {isLoggedIn && <StyledInitialsImage>NA</StyledInitialsImage>}
-        <Button
-          style={{
-            backgroundColor: isLoggedIn ? 'red' : 'blue',
-            color: 'white'
-          }}
-          onClick={onLogin}
-        >
+        <LoginButton onClick={onLogin}>
           {isLoggedIn ? 'Logout' : 'Login'}
-        </Button>
-        {!isLoggedIn && (
-          <Button style={{ backgroundColor: 'red', color: 'white' }}>
-            Signup
-          </Button>
-        )}
+        </LoginButton>
+        {!isLoggedIn && <SignUpButton>Signup</SignUpButton>}
       </StyledFloatRight>
     </StyledHeader>
   );

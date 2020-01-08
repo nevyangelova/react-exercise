@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-const styles = {
-  button: {
-    width: 100,
-    margin: 8,
-    padding: 8
-  }
-};
+const StyledButton = styled.button`
+  width: 100px;
+  margin: 8px;
+  padding: 8px;
+`;
 
 export const Button = props => {
   return (
-    <button
-      onClick={props.onClick}
-      style={{ ...styles.button, ...props.style }}
-    >
+    <StyledButton onClick={props.onClick} className={props.className}>
       {props.children}
-    </button>
+    </StyledButton>
   );
 };
