@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from './Button';
@@ -6,12 +6,12 @@ import { Button } from './Button';
 const StyledHeader = styled.header`
   height: 48px;
   width: 100%;
-  background-color: rgb(102,63,180);
+  background-color: rgb(102, 63, 180);
   color: white;
   padding: 6px 10px;
   display: flex;
-  flexDirection: row;
-  alignItems: center;
+  flexdirection: row;
+  alignitems: center;
 `;
 
 const StyledLogo = styled.div`
@@ -42,24 +42,38 @@ const StyledInitialsImage = styled.div`
   line-height: 2;
 `;
 
-export const TopBar = (props) => {
+export const TopBar = props => {
   const { isLoggedIn, onLogin } = props;
   return (
     <StyledHeader>
       <StyledLogo>
         <Link to="/">
-          <img alt={'logo'} style={{ maxHeight: 40, flex: 1}} src="favicon-196x196.png"/>
+          <img
+            alt={'logo'}
+            style={{ maxHeight: 40, flex: 1 }}
+            src="favicon-196x196.png"
+          />
         </Link>
       </StyledLogo>
-      <div>
-        {'Modus Create'}
-      </div>
+      <div>{'Modus Create'}</div>
       <StyledFloatLeft />
       <StyledFloatRight>
-        {isLoggedIn && <StyledInitialsImage>IB</StyledInitialsImage>}
-        <Button style={{backgroundColor: isLoggedIn ? 'red' : 'blue', color: 'white'}} onClick={onLogin}>{isLoggedIn ? 'Logout' : 'Login'}</Button>
-        {!isLoggedIn && <Button style={{backgroundColor: 'red', color: 'white'}}>Signup</Button>}
-      </ StyledFloatRight>
+        {isLoggedIn && <StyledInitialsImage>NA</StyledInitialsImage>}
+        <Button
+          style={{
+            backgroundColor: isLoggedIn ? 'red' : 'blue',
+            color: 'white'
+          }}
+          onClick={onLogin}
+        >
+          {isLoggedIn ? 'Logout' : 'Login'}
+        </Button>
+        {!isLoggedIn && (
+          <Button style={{ backgroundColor: 'red', color: 'white' }}>
+            Signup
+          </Button>
+        )}
+      </StyledFloatRight>
     </StyledHeader>
   );
-}
+};
