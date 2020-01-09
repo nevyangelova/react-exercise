@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "expect": "^24.9.0",
+    "jest-fetch-mock": "^3.0.1",
     "json-server": "^0.15.1",
     "react": "16.7.0-alpha.2",
     "react-dom": "16.7.0-alpha.2",
