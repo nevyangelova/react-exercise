@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import * as routes from './constants';
+import { Route } from 'react-router-dom';
 import UserDetails from '../components/UserDetails';
 
 const StyledTable = styled.table`
@@ -20,6 +20,7 @@ const StyledTable = styled.table`
     transition: max-height 1s ease-in-out;
     color: #639;
     font-weight: bold;
+    cursor: pointer;
   }
 `;
 
@@ -38,7 +39,7 @@ const getUsers = async () => {
   return await fetch('http://localhost:3001/users').then(res => res.json());
 };
 
-const UserList = () => {
+const UserList = props => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -51,12 +52,31 @@ const UserList = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (users.length === 0) {
+      return;
+    }
+
+    const { match } = props;
+    if (match.path === routes.USER_DETAILS) {
+      const { params } = match;
+      if (params.userId) {
+        const user = users.find(user => user.login.uuid === params.userId);
+        if (user) {
+          openUserModal(user);
+        }
+      }
+    }
+  }, [users]);
+
   const onCloseModal = () => {
     setSelectedUser(null);
+    props.history.push(routes.USER_LIST);
   };
 
   const openUserModal = user => {
     setSelectedUser(user);
+    props.history.push(routes.USER_DETAILS.replace(':userId', user.login.uuid));
   };
 
   return (
@@ -65,22 +85,25 @@ const UserList = () => {
         <tbody>
           {users.map(user => {
             return (
-              <tr key={user.email}>
+              <tr key={user.email} onClick={() => openUserModal(user)}>
                 <td>{user.name.first}</td>
                 <td>{user.name.last}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>
-                  <StyledAction onClick={() => openUserModal(user)}>
-                    Details
-                  </StyledAction>
+                  <StyledAction>Details</StyledAction>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </StyledTable>
-      <UserDetails selectedUser={selectedUser} closeModal={onCloseModal} />
+      <Route
+        path={routes.USER_DETAILS}
+        component={() => (
+          <UserDetails selectedUser={selectedUser} closeModal={onCloseModal} />
+        )}
+      />
     </Container>
   );
 };

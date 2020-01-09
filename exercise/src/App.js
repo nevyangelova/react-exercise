@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import Landing from './routes/Landing';
 import Home from './routes/Home';
 import UserList from './routes/UserList';
+import * as routes from './routes/constants';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,9 +20,9 @@ const App = () => {
     <BrowserRouter>
       <div>
         <GlobalStyle />
-        <Route exact path="/" component={Landing} />
-        <Route path="/home" component={Home} />
-        <Route path="/users" component={UserList} />
+        <Route exact path={routes.INDEX} component={Landing} />
+        <Route path={routes.HOME} component={Home} />
+        <Route path={routes.USER_LIST} component={UserList} />
       </div>
     </BrowserRouter>
   );
